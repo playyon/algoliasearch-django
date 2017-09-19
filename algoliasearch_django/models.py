@@ -290,12 +290,12 @@ class AlgoliaIndex(object):
             if update_fields:
                 obj = self.get_raw_record(instance,
                                           update_fields=update_fields)
-                if not objectID:
+                if 'objectID' in obj and not obj['objectID']:
                     return
                 self.__index.partial_update_object(obj)
             else:
                 obj = self.get_raw_record(instance)
-                if not objectID:
+                if 'objectID' in obj and not obj['objectID']:
                     return
                 self.__index.save_object(obj)
             logger.info('SAVE %s FROM %s', obj['objectID'], self.model)
