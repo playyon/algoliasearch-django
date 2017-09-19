@@ -305,6 +305,12 @@ class AlgoliaIndex(object):
     def delete_record(self, instance):
         """Deletes the record."""
         objectID = self.objectID(instance)
+
+        # if the objectID does not exist, or is a blank string,
+        # we would be wiping out the index with DELETE.
+        if not objectID:
+            return
+
         try:
             self.__index.delete_object(objectID)
             logger.info('DELETE %s FROM %s', objectID, self.model)
